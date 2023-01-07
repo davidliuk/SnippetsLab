@@ -1,0 +1,33 @@
+
+public int strStr(String txt, String pat) {
+    int n = txt.length(), m = pat.length();
+    if (m == 0) {
+        return 0;
+    }
+    
+    int[] next = new int[m];
+    int i = 1, j = 0
+    while (i < m) {
+        while (j > 0 && pat.charAt(i) != pat.charAt(j)) {
+            j = next[j - 1];
+        }
+        if (pat.charAt(i) == pat.charAt(j)) {
+            j++;
+        }
+        next[i] = j;
+        i++;
+    }
+    
+    int i = 0, j = 0
+    while (i < n && j < m) {
+        while (j > 0 && txt.charAt(i) != pat.charAt(j)) {
+            j = next[j - 1];
+        }
+        if (txt.charAt(i) == pat.charAt(j)) {
+            j++;
+        }
+        i++;
+    }
+    
+    return j == m? i - m: -1;
+}
